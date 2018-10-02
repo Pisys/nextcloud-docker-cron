@@ -1,4 +1,4 @@
-FROM nextcloud:13.0.2
+FROM nextcloud:14
 
 RUN apt-get update && apt-get -y install cron
 
