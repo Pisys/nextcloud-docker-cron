@@ -1,4 +1,4 @@
-FROM nextcloud:15
+FROM nextcloud:16
 
 RUN apt-get update && apt-get -y install cron
 
@@ -9,4 +9,4 @@ RUN chmod 0744 /run.sh
 
 RUN chsh -s /bin/bash www-data
 
-ENTRYPOINT "/run.sh"
+CMD "/run.sh"
