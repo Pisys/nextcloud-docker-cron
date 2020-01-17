@@ -1,12 +1,12 @@
-FROM nextcloud:16
+FROM nextcloud:17.0.2
 
-RUN apt-get update && apt-get -y install cron
+RUN apt-get update && apt-get install -y \
+      supervisor \
+      && rm -rf /var/lib/apt/lists/* \
+      && mkdir /var/log/supervisord /var/run/supervisord
 
-ADD configs/cron.conf /var/www/nextcloud_cron
-RUN crontab -u www-data /var/www/nextcloud_cron
-ADD configs/run.sh /
-RUN chmod 0744 /run.sh
+COPY supervisord.conf /etc/supervisor/supervisord.conf
 
-RUN chsh -s /bin/bash www-data
+ENV NEXTCLOUD_UPDATE=1
 
-CMD "/run.sh"
+CMD ["/usr/bin/supervisord"]
